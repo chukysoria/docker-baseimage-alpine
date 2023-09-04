@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.3
+      - uses: actions/checkout@v3.6.0
 
       - name: Set current date as env variable
         run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
@@ -34,6 +34,7 @@ jobs:
           --label \"org.opencontainers.image.ref.name=${{ github.sha }}\" \
           --label \"org.opencontainers.image.title=Baseimage-alpine\" \
           --label \"org.opencontainers.image.description=baseimage-alpine image by Carlos Sanchez\" \
+          --platform=linux/arm \
           --build-arg OS="armhf" --build-arg VERSION=\"${{ github.ref_name }}\" --build-arg BUILD_DATE=${{ env.NOW }} \
           --t ${{ github.sha }} .
 
