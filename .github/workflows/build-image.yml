@@ -33,7 +33,7 @@ jobs:
           --label "org.opencontainers.image.ref.name=${{ github.sha }}" \
           --label "org.opencontainers.image.title=Baseimage-alpine" \
           --label "org.opencontainers.image.description=baseimage-alpine image by Carlos Sanchez" \
-          -t "${{ github.sha }}" --platform="linux/arm" \
+          -t "${{ github.sha }}" --platform="linux/arm/v7" \
           --build-arg OS="armhf" --build-arg VERSION="${{ github.ref_name }}" --build-arg BUILD_DATE="${{ env.NOW }}" .
 
       - name: Tag image
