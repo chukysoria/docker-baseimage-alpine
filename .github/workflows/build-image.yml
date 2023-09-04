@@ -20,7 +20,6 @@ jobs:
 
       - name: Build image
         run: |
-          docker build --no-cache -t ${{ github.sha }} .
           docker buildx build \
           --label \"org.opencontainers.image.created=${{ env.NOW }}\" \
           --label \"org.opencontainers.image.authors=Carlos Sanchez\" \
