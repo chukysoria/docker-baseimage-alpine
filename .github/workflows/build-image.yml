@@ -21,20 +21,20 @@ jobs:
       - name: Build image
         run: |
           docker buildx build \
-          --label \"org.opencontainers.image.created=${{ env.NOW }}\" \
-          --label \"org.opencontainers.image.authors=Carlos Sanchez\" \
-          --label \"org.opencontainers.image.url=https://github.com/chukysoria/docker-baseimage-alpine/packages\" \
-          --label \"org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-baseimage-alpine\" \
-          --label \"org.opencontainers.image.source=https://github.com/chukysoria/docker-baseimage-alpine\" \
-          --label \"org.opencontainers.image.version=${{ github.ref_name }}-ls\" \
-          --label \"org.opencontainers.image.revision=${{ github.sha }}\" \
-          --label \"org.opencontainers.image.vendor=linuxserver.io\" \
-          --label \"org.opencontainers.image.licenses=GPL-3.0-only\" \
-          --label \"org.opencontainers.image.ref.name=${{ github.sha }}\" \
-          --label \"org.opencontainers.image.title=Baseimage-alpine\" \
-          --label \"org.opencontainers.image.description=baseimage-alpine image by Carlos Sanchez\" \
-          -t \"${{ github.sha }}\" --platform=\"linux/arm\" \
-          --build-arg OS=\"armhf\" --build-arg VERSION=\"${{ github.ref_name }}\" --build-arg BUILD_DATE=\"${{ env.NOW }}\" .
+          --label "org.opencontainers.image.created=${{ env.NOW }}" \
+          --label "org.opencontainers.image.authors=Carlos Sanchez" \
+          --label "org.opencontainers.image.url=https://github.com/chukysoria/docker-baseimage-alpine/packages" \
+          --label "org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-baseimage-alpine" \
+          --label "org.opencontainers.image.source=https://github.com/chukysoria/docker-baseimage-alpine" \
+          --label "org.opencontainers.image.version=${{ github.ref_name }}-ls" \
+          --label "org.opencontainers.image.revision=${{ github.sha }}" \
+          --label "org.opencontainers.image.vendor=linuxserver.io" \
+          --label "org.opencontainers.image.licenses=GPL-3.0-only" \
+          --label "org.opencontainers.image.ref.name=${{ github.sha }}" \
+          --label "org.opencontainers.image.title=Baseimage-alpine" \
+          --label "org.opencontainers.image.description=baseimage-alpine image by Carlos Sanchez" \
+          -t "${{ github.sha }}" --platform="linux/arm" \
+          --build-arg OS="armhf" --build-arg VERSION="${{ github.ref_name }}" --build-arg BUILD_DATE="${{ env.NOW }}" .
 
       - name: Tag image
         run: |
