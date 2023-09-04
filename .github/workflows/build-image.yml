@@ -43,6 +43,7 @@ jobs:
           tags: |
             type=sha,format=long
             type=raw,value=${{ github.ref_name }}
+            type=raw,value=${{ env.VERSION }}
             type=ref,event=branch,prefix=${{ env.VERSION }}-
             type=ref,event=tag,prefix=${{ env.VERSION }}-
           labels: |
