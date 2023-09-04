@@ -13,57 +13,58 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.6.0
-
       - name: Set current date as env variable
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       - name: Set up QEMU
-        # Add support for more platforms with QEMU
-        # https://github.com/docker/setup-qemu-action        
         uses: docker/setup-qemu-action@v2
 
-      - name: Build image
-        run: |
-          docker buildx build \
-          --label "org.opencontainers.image.created=${{ env.NOW }}" \
-          --label "org.opencontainers.image.authors=Carlos Sanchez" \
-          --label "org.opencontainers.image.url=https://github.com/chukysoria/docker-baseimage-alpine/packages" \
-          --label "org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-baseimage-alpine" \
-          --label "org.opencontainers.image.source=https://github.com/chukysoria/docker-baseimage-alpine" \
-          --label "org.opencontainers.image.version=${{ github.ref_name }}-ls" \
-          --label "org.opencontainers.image.revision=${{ github.sha }}" \
-          --label "org.opencontainers.image.vendor=linuxserver.io" \
-          --label "org.opencontainers.image.licenses=GPL-3.0-only" \
-          --label "org.opencontainers.image.ref.name=${{ github.sha }}" \
-          --label "org.opencontainers.image.title=Baseimage-alpine" \
-          --label "org.opencontainers.image.description=baseimage-alpine image by Carlos Sanchez" \
-          -t "${{ github.sha }}" --platform="linux/arm/v7" \
-          --build-arg OS="armhf" --build-arg VERSION="${{ github.ref_name }}" --build-arg BUILD_DATE="${{ env.NOW }}" .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          platforms: linux/arm/v7
 
-      - name: Tag image
-        run: |
-          docker tag ${{ github.sha }} ghcr.io/alpine
-          docker tag ${{ github.sha }} ghcr.io/alpine:${{ env.VERSION }}
-          docker tag ${{ github.sha }} ghcr.io/alpine:${{ env.VERSION }}-${{ github.ref_name }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Credential check
-        run: |
-          echo "CR_USER=${{ secrets.CR_USER }}" >> $GITHUB_ENV
-          echo "CR_PAT=${{ secrets.CR_PAT }}" >> $GITHUB_ENV
-          if [[ "${{ secrets.CR_USER }}" == "" && "${{ secrets.CR_PAT }}" == "" ]]; then
-            echo "::error::Push credential secrets missing."
-            echo "::error::You must set CR_USER & CR_PAT as secrets in your repo settings."
-            echo "::error::See https://github.com/linuxserver/docker-mods/blob/master/README.md for more information/instructions."
-            exit 1
-          fi
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+             ghcr.io/chukysoria/alpine            
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=sha,format=long
+            type=raw,value=${{ github.ref_name }}
+            type=ref,event=branch,prefix=${{ github.ref_name }}
+            type=ref,event=tag,prefix=${{ github.ref_name }}
+          labels: |
+            org.opencontainers.image.created=${{ env.NOW }}
+            org.opencontainers.image.authors=Carlos Sanchez
+            org.opencontainers.image.url=https://github.com/chukysoria/docker-baseimage-alpine/packages
+            org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-baseimage-alpine
+            org.opencontainers.image.source=https://github.com/chukysoria/docker-baseimage-alpine
+            org.opencontainers.image.version=${{ github.ref_name }}-ls
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.vendor=linuxserver.io
+            org.opencontainers.image.licenses=GPL-3.0-only
+            org.opencontainers.image.ref.name=${{ github.sha }}
+            org.opencontainers.image.title=Baseimage-alpine
+            org.opencontainers.image.description=baseimage-alpine image by Carlos Sanchez        
 
-      - name: Login to GitHub Container Registry
-        run: |
-          echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ secrets.CR_USER }} --password-stdin
-
-      - name: Push tags to GitHub Container Registry
-        run: |
-          docker tag ${{ github.sha }} ghcr.io/alpine:${{ env.VERSION }}-${{ github.ref_name }}
-          docker push ghcr.io/alpine:${{ env.VERSION }}
-          docker push ghcr.io/alpine
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: ${{ github.event_name == 'push tag' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            OS=armhf
+            VERSION=${{ github.ref_name }}
+            BUILD_DATE=${{ env.NOW }}
