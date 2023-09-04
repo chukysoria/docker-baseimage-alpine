@@ -6,7 +6,7 @@ on:
   push:
 
 env:
-  VERSION: "3.18"
+  VERSION: "3.17"
 
 jobs:
   build:
