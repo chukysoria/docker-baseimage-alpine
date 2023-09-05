@@ -10,6 +10,7 @@ env:
   GH_USER: chukysoria
   GH_REPO: docker-baseimage-alpine
   IMAGE_NAME: baseimage-alpine
+  ARCH: arm32v7
 
 jobs:
   build:
@@ -50,6 +51,11 @@ jobs:
             type=raw,value=${{ env.VERSION }}
             type=ref,event=branch,prefix=${{ env.VERSION }}-
             type=ref,event=tag,prefix=${{ env.VERSION }}-
+            type=raw,value=latest,enable={{is_default_branch}},prefix=${{ env.ARCH }}-
+            type=raw,value=${{ github.ref_name }},prefix=${{ env.ARCH }}-
+            type=raw,value=${{ env.VERSION }},prefix=${{ env.ARCH }}-
+            type=ref,event=branch,prefix=${{ env.ARCH }}-${{ env.VERSION }}-
+            type=ref,event=tag,prefix=${{ env.ARCH }}-${{ env.VERSION }}-
           labels: |
             org.opencontainers.image.created=${{ env.NOW }}
             org.opencontainers.image.authors=Carlos Sanchez
@@ -71,6 +77,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            OS=armhf
+            OS=${{ env.ARCH }}
             VERSION=${{ github.ref_name }}
             BUILD_DATE=${{ env.NOW }}
