@@ -6,7 +6,7 @@ on:
   push:
 
 env:
-  VERSION: 3.18
+  VERSION: 3.17
   GH_USER: chukysoria
   GH_REPO: docker-baseimage-alpine
   IMAGE_NAME: baseimage-alpine

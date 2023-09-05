@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
 
-FROM --platform=linux/arm/v7 alpine:3.18 as rootfs-stage
+FROM --platform=linux/arm/v7 alpine:3.17 as rootfs-stage
 
 # environment
 ENV ROOTFS=/root-out
-ENV REL=v3.18
+ENV REL=v3.17
 ENV ARCH=armhf
 ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=alpine-baselayout,\
@@ -78,7 +78,7 @@ RUN \
     curl \
     jq \
     netcat-openbsd \
-    procps-ng \
+    procps \
     shadow \
     tzdata && \
   echo "**** create abc user and make our folders ****" && \
