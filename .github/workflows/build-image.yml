@@ -6,7 +6,10 @@ on:
   push:
 
 env:
-  VERSION: "3.18"
+  VERSION: 3.18
+  GH_USER: chukysoria
+  GH_REPO: docker-baseimage-alpine
+  IMAGE_NAME: baseimage-alpine
 
 jobs:
   build:
@@ -38,7 +41,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-             ghcr.io/chukysoria/alpine            
+             ghcr.io/${{ env.GH_USER }}/${{ env.IMAGE_NAME }}            
           # generate Docker tags based on the following events/attributes
           tags: |
             type=sha,format=long
@@ -49,15 +52,15 @@ jobs:
           labels: |
             org.opencontainers.image.created=${{ env.NOW }}
             org.opencontainers.image.authors=Carlos Sanchez
-            org.opencontainers.image.url=https://github.com/chukysoria/docker-baseimage-alpine/packages
+            org.opencontainers.image.url=https://github.com/${{ env.GH_USER }}/${{ env.GH_REPO }}/packages
             org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-baseimage-alpine
-            org.opencontainers.image.source=https://github.com/chukysoria/docker-baseimage-alpine
+            org.opencontainers.image.source=https://github.com/${{ env.GH_USER }}/${{ env.GH_REPO }}
             org.opencontainers.image.version=${{ github.ref_name }}-ls
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.vendor=Carlos Sanchez
             org.opencontainers.image.licenses=GPL-3.0-only
             org.opencontainers.image.ref.name=${{ github.sha }}
-            org.opencontainers.image.title=Baseimage-alpine
+            org.opencontainers.image.title=${{ env.IMAGE_NAME }}
             org.opencontainers.image.description=baseimage-alpine image by Carlos Sanchez        
 
       - name: Build and push
