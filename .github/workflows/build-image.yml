@@ -26,6 +26,7 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+        id: dockerx-builder
         with:
           platforms: linux/arm/v7
 
@@ -73,6 +74,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          builder: ${{ steps.dockerx-builder.outputs.name }}
           push: ${{ github.event_name == 'release' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
