@@ -7,4 +7,4 @@ ext_release: 3.18
 arch:
   - aarch64
   - x86_64
-  - armhf
+  - armv7

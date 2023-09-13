@@ -21,6 +21,7 @@ libc-utils
 RUN \
   apk add --no-cache \
     bash \
+    curl \
     xz
 
 # build rootfs
@@ -40,8 +41,15 @@ ARG S6_OVERLAY_VERSION="3.1.5.0"
 # add s6 overlay
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 RUN tar -C /root-out -Jxpf /tmp/s6-overlay-noarch.tar.xz
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${BUILD_ARCH}.tar.xz /tmp
-RUN tar -C /root-out -Jxpf /tmp/s6-overlay-${BUILD_ARCH}.tar.xz
+RUN <<EOF
+  if [[ $BUILD_ARCH == "armv7" ]]; then
+    S6_OVERLAY_ARCH=armhf
+  else
+    S6_OVERLAY_ARCH=$BUILD_ARCH
+  fi
+  curl -L -o /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
+  tar -C /root-out -Jxpf /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
+EOF
 
 # add s6 optional symlinks
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-symlinks-noarch.tar.xz /tmp
