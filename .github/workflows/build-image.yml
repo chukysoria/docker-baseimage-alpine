@@ -150,7 +150,7 @@ jobs:
           flavor:
             prefix=${{ matrix.architecture }}-
           tags: |
-            type=sha
+            type=sha,prefix=${{ matrix.architecture }}-
             type=raw,value=latest
             type=raw,value=${{ needs.information.outputs.ext_release_clean }}
             type=semver,pattern=v{{version}}
