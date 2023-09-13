@@ -90,6 +90,9 @@ jobs:
     outputs:
       build_date: ${{ steps.flags.outputs.date }}
     steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v4
+
       - name: ℹ️ Compose build flags
         id: flags
         run: |

@@ -5,6 +5,6 @@ name: Base Image Alpine
 description: "[baseimage-alpine] Base image for chukyserver.io"
 ext_release: 3.18
 arch:
-  - aarch65
+  - aarch64
   - x86_64
   - armhf
