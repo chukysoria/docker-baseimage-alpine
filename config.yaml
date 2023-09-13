@@ -1,0 +1,10 @@
+---
+image:  baseimage-alpine
+version: 0.1.0
+name: Base Image Alpine
+description: "[baseimage-alpine] Base image for chukyserver.io"
+ext_release: 3.18
+architectures:
+  - aarch65
+  - x86_64
+  - armhf

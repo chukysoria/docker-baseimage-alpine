@@ -1,11 +1,15 @@
 # syntax=docker/dockerfile:1
 
-FROM --platform=linux/arm/v7 alpine:3.18 as rootfs-stage
+ARG BUILD_FROM=alpine:3.18.3
+
+FROM ${BUILD_FROM} as rootfs-stage
+
+ARG BUILD_ARCH
+ARG BUILD_EXT_RELEASE
 
 # environment
 ENV ROOTFS=/root-out
-ENV REL=v3.18
-ENV ARCH=armhf
+ENV REL=v${BUILD_EXT_RELEASE}
 ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=alpine-baselayout,\
 alpine-keys,\
@@ -20,24 +24,24 @@ RUN \
     xz
 
 # build rootfs
-RUN \
-  mkdir -p "$ROOTFS/etc/apk" && \
-  { \
-    echo "$MIRROR/$REL/main"; \
-    echo "$MIRROR/$REL/community"; \
-  } > "$ROOTFS/etc/apk/repositories" && \
-  apk --root "$ROOTFS" --no-cache --keys-dir /etc/apk/keys add --arch $ARCH --initdb ${PACKAGES//,/ } && \
+RUN <<EOF
+  mkdir -p "$ROOTFS/etc/apk" &&
+  {
+    echo "$MIRROR/$REL/main";
+    echo "$MIRROR/$REL/community";
+  } > "$ROOTFS/etc/apk/repositories" &&
+  apk --root "$ROOTFS" --no-cache --keys-dir /etc/apk/keys add --arch $BUILD_ARCH --initdb ${PACKAGES//,/ } &&
   sed -i -e 's/^root::/root:!:/' /root-out/etc/shadow
+EOF
 
 # set version for s6 overlay
 ARG S6_OVERLAY_VERSION="3.1.5.0"
-ARG S6_OVERLAY_ARCH="armhf"
 
 # add s6 overlay
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 RUN tar -C /root-out -Jxpf /tmp/s6-overlay-noarch.tar.xz
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz /tmp
-RUN tar -C /root-out -Jxpf /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${BUILD_ARCH}.tar.xz /tmp
+RUN tar -C /root-out -Jxpf /tmp/s6-overlay-${BUILD_ARCH}.tar.xz
 
 # add s6 optional symlinks
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-symlinks-noarch.tar.xz /tmp
@@ -49,11 +53,11 @@ RUN tar -C /root-out -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 FROM scratch
 COPY --from=rootfs-stage /root-out/ /
 ARG BUILD_DATE
-ARG VERSION
+ARG BUILD_VERSION
 ARG MODS_VERSION="v3"
 ARG PKG_INST_VERSION="v1"
-LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="TheLamer"
+LABEL build_version="Chukyserver.io version:- ${BUILD_VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="chukysoria"
 
 ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/docker-mods.${MODS_VERSION}" "/docker-mods"
 ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
