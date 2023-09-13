@@ -24,7 +24,7 @@ jobs:
       - name: ℹ️ Find config file
         id: find
         run: |
-          echo "config=build.yaml" >> $GITHUB_OUTPUT
+          echo "config=config.yaml" >> $GITHUB_OUTPUT
 
       - name: ℹ️ Extract basic image information
         shell: bash
