@@ -148,9 +148,10 @@ jobs:
              ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}            
           # generate Docker tags based on the following events/attributes
           flavor:
-            prefix=${{ matrix.architecture }}-,onlatest=true
+            prefix=${{ matrix.architecture }}-
           tags: |
             type=sha
+            type=raw,value=latest
             type=raw,value=${{ needs.information.outputs.ext_release_clean }}
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}
@@ -234,6 +235,7 @@ jobs:
           # generate Docker tags based on the following events/attributes
           tags: |
             type=sha
+            type=raw,value=latest
             type=raw,value=${{ needs.information.outputs.ext_release_clean }}
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}
