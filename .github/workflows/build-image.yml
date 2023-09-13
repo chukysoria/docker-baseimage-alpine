@@ -245,9 +245,9 @@ jobs:
       - name: 🚀 Calculate source images and output tags
         id: source
         run: |
-          images=$(echo '${{ needs.information.outputs.architectures }}' | jq -c 'map("ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}:\(.)-latest")')
+          images=$(echo '${{ needs.information.outputs.architectures }}' | jq -c 'map("ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}:\(.)-latest") |  join(",")')
           echo "images=$images" >> $GITHUB_OUTPUT
-          tags=$(echo '${{ steps.meta.outputs.tags }}' | jq -R -s -c 'split("\n")')
+          tags=$(echo '${{ steps.meta.outputs.tags }}' | jq -R -s -c 'split("\n") |  join(",")')
           echo "tags=$tags" >> $GITHUB_OUTPUT
 
       - name: 🚀 Create and push manifest images
