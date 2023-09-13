@@ -115,14 +115,14 @@ jobs:
             exit 1
           fi
 
-      - name: 🏗 Set up build cache
+      - name: 🏗 Restore build cache
         id: cache
-        uses: actions/cache@v3.3.2
+        uses: actions/cache/restore@v3.3.2
         with:
           path: /tmp/.docker-cache
           key: docker-${{ matrix.architecture }}-${{ github.sha }}
           restore-keys: |
-            docker-${{ matrix.architecture }}
+            docker-${{ matrix.architecture }}   
 
       - name: 🏗 Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -167,9 +167,12 @@ jobs:
             org.opencontainers.image.description=${{ needs.information.outputs.description }} 
 
       - name: 🚀 Build and push
+        id: build-and-push
         uses: docker/build-push-action@v4
         with:
-          load: true
+          # Not possible to load and push at the same time
+          push: ${{ github.event_name == 'release' }}
+          load: ${{ github.event_name != 'release' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: |
@@ -177,7 +180,6 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}
           cache-to: type=local,mode=max,dest=/tmp/.docker-cache-new          
           platforms: ${{ steps.flags.outputs.platform }}
-          push: ${{ github.event_name == 'release' }}
           build-args: |
             BUILD_ARCH=${{ matrix.architecture }}
             BUILD_DATE=${{ steps.flags.outputs.date }}
@@ -190,9 +192,18 @@ jobs:
       # https://github.com/docker/build-push-action/issues/252
       # https://github.com/moby/buildkit/issues/1896
       - name: 🚚 Swap build cache
+        if: ${{ github.event_name != 'release' }}
         run: |
           rm -rf /tmp/.docker-cache
           mv /tmp/.docker-cache-new /tmp/.docker-cache
+
+      - name: 🏗 Save build cache
+        # On release push no cache is created
+        if: ${{ github.event_name != 'release' }}
+        uses: actions/cache/save@v3.3.2
+        with:
+          path: /tmp/.docker-cache
+          key: docker-${{ matrix.architecture }}-${{ github.sha }}
 
   publish:
     name: 👷 Publish manifest
