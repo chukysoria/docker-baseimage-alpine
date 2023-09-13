@@ -148,7 +148,7 @@ jobs:
              ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}            
           # generate Docker tags based on the following events/attributes
           flavor:
-            prefix=${{ matrix.architecture }}-,onlatest=true,
+            prefix=${{ matrix.architecture }}-,onlatest=true
           tags: |
             type=sha
             type=raw,value=${{ needs.information.outputs.ext_release_clean }}
