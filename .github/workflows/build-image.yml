@@ -148,11 +148,14 @@ jobs:
              ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}            
           # generate Docker tags based on the following events/attributes
           flavor:
-            latest=true
-            prefix=${{ matrix.architecture }}-
+            prefix=${{ matrix.architecture }}-,onlatest=true,
           tags: |
-            type=sha,prefix=${{ matrix.architecture }}-${{ needs.information.outputs.ext_release_clean }}-
-            type=sha,suffix=-${{ needs.information.outputs.version }}
+            type=sha
+            type=raw,value=${{ needs.information.outputs.ext_release_clean }}
+            type=semver,pattern=v{{version}}
+            type=semver,pattern=v{{major}}
+            type=semver,pattern=v{{major}}.{{minor}}
+            type=semver,pattern=v{{version}},prefix=${{ needs.information.outputs.ext_release_clean }}
           labels: |
             org.opencontainers.image.created=${{ steps.flags.outputs.date }}
             org.opencontainers.image.authors=Carlos Sanchez
@@ -229,11 +232,13 @@ jobs:
           images: |
              ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}            
           # generate Docker tags based on the following events/attributes
-          flavor:
-            latest=true
           tags: |
-            type=sha,prefix=${{ needs.information.outputs.ext_release_clean }}-
-            type=sha,prefix=,suffix=-${{ needs.information.outputs.version }}
+            type=sha
+            type=raw,value=${{ needs.information.outputs.ext_release_clean }}
+            type=semver,pattern=v{{version}}
+            type=semver,pattern=v{{major}}
+            type=semver,pattern=v{{major}}.{{minor}}
+            type=semver,pattern=v{{version}},prefix=${{ needs.information.outputs.ext_release_clean }}
       
       - name: 🚀 Calculate source images
         id: source
