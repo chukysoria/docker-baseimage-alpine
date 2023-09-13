@@ -42,7 +42,7 @@ jobs:
           ext_release=$(yq --no-colors eval '.ext_release' "${{ steps.find.outputs.config }}")
           echo "ext_release=${ext_release}" >> "$GITHUB_OUTPUT"
 
-          echo "ext_release_clean=$(echo '$ext_release' | sed 's/[~,%@+;:/]//g')" >> "$GITHUB_OUTPUT"
+          echo "ext_release_clean=$(echo $ext_release | sed 's/[~,%@+;:/]//g')" >> "$GITHUB_OUTPUT"
   
       - name: ℹ️ Extract add-on architecture information
         shell: bash
@@ -148,6 +148,7 @@ jobs:
              ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}            
           # generate Docker tags based on the following events/attributes
           flavor:
+            latest=true
             prefix=${{ matrix.architecture }}-
           tags: |
             type=sha,prefix=${{ matrix.architecture }}-${{ needs.information.outputs.ext_release_clean }}-
@@ -228,6 +229,8 @@ jobs:
           images: |
              ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}            
           # generate Docker tags based on the following events/attributes
+          flavor:
+            latest=true
           tags: |
             type=sha,prefix=${{ needs.information.outputs.ext_release_clean }}-
             type=sha,prefix=,suffix=-${{ needs.information.outputs.version }}
@@ -235,10 +238,8 @@ jobs:
       - name: 🚀 Calculate source images
         id: source
         run: |
-          for arch in ${{ needs.information.outputs.architectures }}; do
-              echo "$(ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}:$arch-latest)" >> images.txt
-          done
-          echo "images=$(cat images.txt)" >> GITHUB_OUTPUT
+          images=$(echo '${{ needs.information.outputs.architectures }}' | jq -c 'map("ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}:\(.)-latest")')
+          echo "images=$($images)" >> $GITHUB_OUTPUT
 
       - name: 🚀 Create and push manifest images
         uses: Noelware/docker-manifest-action@0.4.0
