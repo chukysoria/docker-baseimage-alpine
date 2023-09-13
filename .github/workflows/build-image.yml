@@ -242,15 +242,17 @@ jobs:
             type=semver,pattern=v{{major}}.{{minor}}
             type=semver,pattern=v{{version}},prefix=${{ needs.information.outputs.ext_release_clean }}-
       
-      - name: 🚀 Calculate source images
+      - name: 🚀 Calculate source images and output tags
         id: source
         run: |
           images=$(echo '${{ needs.information.outputs.architectures }}' | jq -c 'map("ghcr.io/${{ github.repository_owner }}/${{ needs.information.outputs.image }}:\(.)-latest")')
-          echo "images=$($images)" >> $GITHUB_OUTPUT
+          echo "images=$images" >> $GITHUB_OUTPUT
+          tags=$(echo '${{ steps.meta.outputs.tags }}' | jq -R -s -c 'split("\n")')
+          echo "tags=$tags" >> $GITHUB_OUTPUT
 
       - name: 🚀 Create and push manifest images
         uses: Noelware/docker-manifest-action@0.4.0
         with:
-            inputs: ${{ steps.meta.outputs.tags }}
+            inputs: ${{ steps.source.outputs.tags }}
             images: ${{ steps.source.outputs.images }}
             push: true
