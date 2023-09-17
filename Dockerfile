@@ -10,6 +10,7 @@ ARG BUILD_EXT_RELEASE
 # environment
 ENV ROOTFS=/root-out
 ENV REL=v${BUILD_EXT_RELEASE}
+
 ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=alpine-baselayout,\
 alpine-keys,\
@@ -90,7 +91,7 @@ RUN \
     curl \
     jq \
     netcat-openbsd \
-    procps-ng \
+    procps \
     shadow \
     tzdata && \
   echo "**** create abc user and make our folders ****" && \
