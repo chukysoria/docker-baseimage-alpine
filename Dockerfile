@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG BUILD_FROM=alpine:3.17.6
+ARG BUILD_FROM=alpine:3.17.5
 
 FROM ${BUILD_FROM} as rootfs-stage
 
