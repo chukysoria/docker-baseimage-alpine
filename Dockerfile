@@ -84,7 +84,7 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.18.3-r0 \
+    alpine-release=3.18.4-r0 \
     bash=5.2.15-r5 \
     ca-certificates=20230506-r0 \
     coreutils=9.3-r1 \
