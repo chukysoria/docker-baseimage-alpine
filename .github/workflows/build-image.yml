@@ -151,12 +151,12 @@ jobs:
             prefix=${{ matrix.architecture }}-
           tags: |
             type=sha,prefix=${{ matrix.architecture }}-
-            type=raw,value=${{ needs.information.outputs.ext_release_clean }}
+            type=raw,value=alpine${{ needs.information.outputs.ext_release_clean }}
             type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
             type=semver,pattern=v{{major}}.{{minor}}
-            type=semver,pattern=v{{version}},suffix=-${{ needs.information.outputs.ext_release_clean }}
+            type=semver,pattern=v{{version}},suffix=-alpine${{ needs.information.outputs.ext_release_clean }}
           labels: |
             org.opencontainers.image.created=${{ steps.flags.outputs.date }}
             org.opencontainers.image.authors=Carlos Sanchez
@@ -237,11 +237,11 @@ jobs:
           tags: |
             type=sha
             type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=${{ needs.information.outputs.ext_release_clean }}
+            type=raw,value=alpine${{ needs.information.outputs.ext_release_clean }}
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
             type=semver,pattern=v{{major}}.{{minor}}
-            type=semver,pattern=v{{version}},suffix=-${{ needs.information.outputs.ext_release_clean }}
+            type=semver,pattern=v{{version}},suffix=-alpine${{ needs.information.outputs.ext_release_clean }}
       
       - name: 🚀 Calculate source images and output tags
         id: source
