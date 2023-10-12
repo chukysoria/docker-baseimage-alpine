@@ -88,7 +88,7 @@ RUN \
     bash=5.2.15-r5 \
     ca-certificates=20230506-r0 \
     coreutils=9.3-r1 \
-    curl=8.3.0-r0 \
+    curl=8.4.0-r0 \
     jq=1.6-r3 \
     netcat-openbsd=1.219-r1 \
     procps-ng=4.0.4-r0 \
