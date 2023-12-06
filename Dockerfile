@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG BUILD_FROM=alpine:3.18.3
+ARG BUILD_FROM=alpine:3.18.5
 
 FROM ${BUILD_FROM} as rootfs-stage
 
@@ -15,7 +15,7 @@ ENV PACKAGES=\
 alpine-baselayout=3.4.3-r1,\
 alpine-keys=2.4-r1,\
 apk-tools=2.14.0-r2,\
-busybox=1.36.1-r2,\
+busybox=1.36.1-r5,\
 libc-utils=0.7.2-r5
 
 # install packages
@@ -84,11 +84,11 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.18.3-r0 \
+    alpine-release=3.18.5-r0 \
     bash=5.2.15-r5 \
     ca-certificates=20230506-r0 \
     coreutils=9.3-r1 \
-    curl=8.3.0-r0 \
+    curl=8.4.0-r0 \
     jq=1.6-r3 \
     netcat-openbsd=1.219-r1 \
     procps-ng=4.0.4-r0 \

@@ -1,8 +1,8 @@
 ---
 image:  baseimage-alpine
-version: 0.1.0
+version: v0.3.3
 name: Base Image Alpine
-description: "[baseimage-alpine] Base image for chukyserver.io"
+description: "[Base Image-Alpine] Base image for chukyserver.io"
 ext_release: 3.18
 arch:
   - aarch64
