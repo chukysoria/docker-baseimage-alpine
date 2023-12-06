@@ -1,6 +1,6 @@
 {
       "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-      "extends": ["github>chukysoria", "github>chukysoria:docker-build", "github>chukysoria:os-package(alpine_3_18)"],
+      "extends": ["local>chukysoria/renovate-config", "local>chukysoria/renovate-config:docker-build", "local>chukysoria/renovate-config:os-package(alpine_3_18)"],
       "regexManagers": [
         {
           "fileMatch": ["(^|/)Dockerfile$"],
@@ -11,4 +11,5 @@
           "depNameTemplate": "just-containers/s6-overlay"
         }
       ]
+
 }
