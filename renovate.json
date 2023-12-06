@@ -1,0 +1,15 @@
+{
+      "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+      "extends": ["local>chukysoria/renovate-config", "local>chukysoria/renovate-config:docker-build", "local>chukysoria/renovate-config:os-package(alpine_3_18)"],
+      "regexManagers": [
+        {
+          "fileMatch": ["(^|/)Dockerfile$"],
+          "matchStrings": [
+            "ARG S6_OVERLAY_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
+          ],
+          "datasourceTemplate": "github-releases",
+          "depNameTemplate": "just-containers/s6-overlay"
+        }
+      ]
+
+}
