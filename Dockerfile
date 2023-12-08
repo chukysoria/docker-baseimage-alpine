@@ -90,7 +90,7 @@ RUN \
     coreutils=9.4-r1 \
     curl=8.5.0-r0 \
     jq=1.7-r2 \
-    netcat-openbsd=1.219-r1 \
+    netcat-openbsd=1.226-r0 \
     procps-ng=4.0.4-r0 \
     shadow=4.13-r4 \
     tzdata=2023c-r1 \
