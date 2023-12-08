@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG BUILD_FROM=alpine:3.18.5
+ARG BUILD_FROM=alpine:3.19.0
 
 FROM ${BUILD_FROM} as rootfs-stage
 
@@ -12,10 +12,10 @@ ENV ROOTFS=/root-out
 ENV REL=v${BUILD_EXT_RELEASE}
 ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=\
-alpine-baselayout=3.4.3-r1,\
+alpine-baselayout=3.4.3-r2,\
 alpine-keys=2.4-r1,\
-apk-tools=2.14.0-r2,\
-busybox=1.36.1-r5,\
+apk-tools=2.14.0-r5,\
+busybox=1.36.1-r15,\
 libc-utils=0.7.2-r5
 
 # install packages
@@ -84,15 +84,15 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.18.5-r0 \
-    bash=5.2.15-r5 \
+    alpine-release=3.19.0-r0 \
+    bash=5.2.21-r0 \
     ca-certificates=20230506-r0 \
-    coreutils=9.3-r1 \
+    coreutils=9.4-r1 \
     curl=8.5.0-r0 \
-    jq=1.6-r3 \
-    netcat-openbsd=1.219-r1 \
+    jq=1.7-r2 \
+    netcat-openbsd=1.226-r0 \
     procps-ng=4.0.4-r0 \
-    shadow=4.13-r4 \
+    shadow=4.14.2-r0 \
     tzdata=2023c-r1 \
   && \
   echo "**** create abc user and make our folders ****" && \
