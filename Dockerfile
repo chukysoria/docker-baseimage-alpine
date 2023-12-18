@@ -89,7 +89,7 @@ RUN \
     ca-certificates=20230506-r0 \
     coreutils=9.4-r1 \
     curl=8.5.0-r0 \
-    jq=1.7-r2 \
+    jq=1.7.1-r0 \
     netcat-openbsd=1.226-r0 \
     procps-ng=4.0.4-r0 \
     shadow=4.14.2-r0 \
