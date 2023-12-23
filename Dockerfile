@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG BUILD_FROM=alpine:3.19.0
+ARG BUILD_FROM=alpine:20231219
 
 FROM ${BUILD_FROM} as rootfs-stage
 
@@ -9,14 +9,15 @@ ARG BUILD_EXT_RELEASE
 
 # environment
 ENV ROOTFS=/root-out
-ENV REL=v${BUILD_EXT_RELEASE}
+ENV REL=${BUILD_EXT_RELEASE}
 ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=\
-alpine-baselayout=3.4.3-r2,\
-alpine-keys=2.4-r1,\
-apk-tools=2.14.0-r5,\
-busybox=1.36.1-r15,\
-libc-utils=0.7.2-r5
+alpine-baselayout,\
+alpine-keys,\
+apk-tools,\
+busybox,\
+libc-utils
+
 
 # install packages
 RUN \
@@ -84,16 +85,15 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.19.0-r0 \
-    bash=5.2.21-r0 \
-    ca-certificates=20230506-r0 \
-    coreutils=9.4-r1 \
-    curl=8.5.0-r0 \
-    jq=1.7.1-r0 \
-    netcat-openbsd=1.226-r0 \
-    procps-ng=4.0.4-r0 \
-    shadow=4.14.2-r0 \
-    tzdata=2023d-r0 \
+    bash \
+    ca-certificates \
+    coreutils \
+    curl \
+    jq \
+    netcat-openbsd \
+    procps-ng \
+    shadow \
+    tzdata \
   && \
   echo "**** create abc user and make our folders ****" && \
   groupmod -g 1000 users && \
