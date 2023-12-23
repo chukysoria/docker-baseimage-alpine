@@ -26,5 +26,5 @@
       "extractVersion": "^v(?<version>.*)$"
     }
   ],
-  "baseBranches": ["$default", "3.19"]
+  "baseBranches": ["$default", "3.19", "edge"]
 }
