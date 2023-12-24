@@ -12,4 +12,3 @@ jobs:
     uses: chukysoria/workflows/.github/workflows/new-release.yml@v1.0.18
     with:
       tag-external-version: true
-      prerelease: true
