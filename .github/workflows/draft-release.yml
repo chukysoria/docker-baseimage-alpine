@@ -13,4 +13,3 @@ jobs:
     with:
       tag-external-version: true
       prerelease: true
-      prerelease-identifier: edge
