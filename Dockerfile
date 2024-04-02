@@ -14,7 +14,7 @@ ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=\
 alpine-baselayout=3.4.3-r2,\
 alpine-keys=2.4-r1,\
-apk-tools=2.14.3-r0,\
+apk-tools=2.14.3-r1,\
 busybox=1.36.1-r15,\
 libc-utils=0.7.2-r5
 
