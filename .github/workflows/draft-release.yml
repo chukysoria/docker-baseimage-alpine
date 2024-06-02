@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - master
-      - edge
+      - 3.19
 
 jobs:
   update_release_draft:
     name: Release
-    uses: chukysoria/workflows/.github/workflows/new-release.yml@v1.0.31
+    uses: chukysoria/workflows/.github/workflows/new-release.yml@v1.0.30
     with:
       tag-external-version: true
