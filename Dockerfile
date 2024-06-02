@@ -85,7 +85,7 @@ RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
     alpine-release=3.19.1-r0 \
-    bash=5.2.21-r0 \
+    bash=5.2.26-r0 \
     ca-certificates=20240226-r0 \
     coreutils=9.4-r2 \
     curl=8.5.0-r0 \
