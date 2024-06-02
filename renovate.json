@@ -3,6 +3,7 @@
   "extends": [
     "local>chukysoria/renovate-config",
     "local>chukysoria/renovate-config:docker-build",
+    "local>chukysoria/renovate-config:os-package(alpine_3_19)",
     "local>chukysoria/renovate-config:os-package(alpine_3_20)"
   ],
   "regexManagers": [
@@ -24,6 +25,30 @@
       ],
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$",
       "extractVersion": "^v(?<version>.*)$"
+    },
+    {
+      "matchDepPrefixes": [
+        "alpine"
+      ],
+      "excludeDepPrefixes":[
+        "alpine_3_19"
+      ],
+      "matchBaseBranches": [
+        "3.19"
+      ],
+      "enabled": false 
+    },
+    {
+      "matchDepPrefixes": [
+        "alpine"
+      ],
+      "excludeDepPrefixes":[
+        "alpine_3_20"
+      ],
+      "matchBaseBranches": [
+        "3.20"
+      ],
+      "enabled": false 
     }
   ],
   "baseBranches": ["$default", "3.19", "3.20"]
