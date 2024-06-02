@@ -87,7 +87,7 @@ RUN \
     alpine-release=3.19.1-r0 \
     bash=5.2.21-r0 \
     ca-certificates=20240226-r0 \
-    coreutils=9.4-r2 \
+    coreutils=9.5-r1 \
     curl=8.5.0-r0 \
     jq=1.7.1-r0 \
     netcat-openbsd=1.226-r0 \
