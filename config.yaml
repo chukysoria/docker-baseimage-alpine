@@ -3,7 +3,7 @@ image:  baseimage-alpine
 version: v0.5.28
 name: Base Image Alpine
 description: "[Base Image-Alpine] Base image for chukyserver.io"
-ext_release: 3.19
+ext_release: 3.20
 arch:
   - aarch64
   - x86_64
