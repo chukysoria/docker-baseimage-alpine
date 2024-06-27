@@ -91,7 +91,7 @@ RUN \
     ca-certificates=20240226-r0 \
     catatonit=0.2.0-r0 \
     coreutils=9.5-r1 \
-    curl=8.7.1-r0 \
+    curl=8.8.0-r0 \
     findutils=4.9.0-r5 \
     jq=1.7.1-r0 \
     netcat-openbsd=1.226-r0 \
