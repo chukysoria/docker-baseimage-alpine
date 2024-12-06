@@ -1,22 +1,22 @@
 # syntax=docker/dockerfile:1
 
-ARG BUILD_FROM=alpine:3.20.3
+ARG BUILD_FROM=alpine:3.21.0
 
 FROM ${BUILD_FROM} AS rootfs-stage
 
 ARG BUILD_ARCH=x86_64
-ARG BUILD_EXT_RELEASE=3.20
+ARG BUILD_EXT_RELEASE=3.21
 
 # environment
 ENV ROOTFS=/root-out
 ENV REL=v${BUILD_EXT_RELEASE}
 ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=\
-alpine-baselayout=3.6.5-r0,\
-alpine-keys=2.4-r1,\
-apk-tools=2.14.4-r1,\
-busybox=1.36.1-r29,\
-musl-utils=1.2.5-r0
+alpine-baselayout=3.6.8-r0,\
+alpine-keys=2.5-r0,\
+apk-tools=2.14.6-r2,\
+busybox=1.37.0-r8,\
+musl-utils=1.2.5-r8
 
 # install packages
 RUN \
@@ -86,18 +86,18 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.20.3-r0 \
-    bash=5.2.26-r0 \
-    ca-certificates=20240705-r0 \
+    alpine-release=3.21.0-r0 \
+    bash=5.2.37-r0 \
+    ca-certificates=20241010-r0 \
     catatonit=0.2.0-r0 \
     coreutils=9.5-r1 \
 		curl=8.11.0-r2 \
-    findutils=4.9.0-r5 \
+    findutils=4.10.0-r0 \
     jq=1.7.1-r0 \
-    netcat-openbsd=1.226-r0 \
-    procps-ng=4.0.4-r0 \
-    shadow=4.15.1-r0 \
-    tzdata=2024b-r0 \
+    netcat-openbsd=1.226.1.1-r0 \
+    procps-ng=4.0.4-r2 \
+    shadow=4.16.0-r1 \
+    tzdata=2024b-r1 \
   && \
   echo "**** create abc user and make our folders ****" && \
   groupmod -g 1000 users && \
