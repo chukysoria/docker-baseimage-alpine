@@ -5,8 +5,9 @@
     "local>chukysoria/renovate-config:docker-build",
     "local>chukysoria/renovate-config:os-package(alpine_3_20)"
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": [
         "(^|/)Dockerfile$"
       ],
