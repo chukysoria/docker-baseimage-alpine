@@ -89,7 +89,7 @@ RUN \
     bash=5.2.37-r0 \
     ca-certificates=20241121-r0 \
     catatonit=0.2.0-r0 \
-    coreutils=9.5-r1 \
+    coreutils=9.5-r2 \
 		curl=8.11.1-r0 \
     findutils=4.10.0-r0 \
     jq=1.7.1-r0 \
