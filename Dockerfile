@@ -14,7 +14,7 @@ ENV PACKAGES=\
 alpine-baselayout=3.6.8-r1,\
 alpine-keys=2.5-r0,\
 apk-tools=2.14.6-r2,\
-busybox=1.37.0-r9,\
+busybox=1.37.0-r12,\
 musl-utils=1.2.5-r8
 
 # install packages
