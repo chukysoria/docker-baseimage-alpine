@@ -4,18 +4,18 @@ ARG BUILD_FROM=alpine:3.22.0@sha256:8a1f59ffb675680d47db6337b49d22281a139e9d7093
 FROM ${BUILD_FROM} AS rootfs-stage
 
 ARG BUILD_ARCH=x86_64
-ARG BUILD_EXT_RELEASE=3.21
+ARG BUILD_EXT_RELEASE=3.22
 
 # environment
 ENV ROOTFS=/root-out
 ENV REL=v${BUILD_EXT_RELEASE}
 ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=\
-alpine-baselayout=3.6.8-r1,\
+alpine-baselayout=3.7.0-r0,\
 alpine-keys=2.5-r0,\
-apk-tools=2.14.6-r3,\
-busybox=1.37.0-r12,\
-musl-utils=1.2.5-r9
+apk-tools=2.14.9-r2,\
+busybox=1.37.0-r18,\
+musl-utils=1.2.5-r10
 
 # install packages
 RUN \
@@ -87,17 +87,17 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.21.3-r0 \
+    alpine-release=3.22.0-r0 \
     bash=5.2.37-r0 \
-    ca-certificates=20241121-r1 \
-    catatonit=0.2.0-r0 \
-    coreutils=9.5-r2 \
-		curl=8.12.1-r1 \
+    ca-certificates=20241121-r2 \
+    catatonit=0.2.1-r0 \
+    coreutils=9.7-r1 \
+		curl=8.14.0-r2 \
     findutils=4.10.0-r0 \
     jq=1.7.1-r0 \
-    netcat-openbsd=1.226.1.1-r0 \
-    procps-ng=4.0.4-r2 \
-    shadow=4.16.0-r1 \
+    netcat-openbsd=1.229.1-r0 \
+    procps-ng=4.0.4-r3 \
+    shadow=4.17.3-r0 \
     tzdata=2025b-r0 \
   && \
   echo "**** create abc user and make our folders ****" && \
