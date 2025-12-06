@@ -11,11 +11,11 @@ ENV ROOTFS=/root-out
 ENV REL=v${BUILD_EXT_RELEASE}
 ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=\
-alpine-baselayout=3.7.0-r0,\
-alpine-keys=2.5-r0,\
+alpine-baselayout=3.7.1-r8,\
+alpine-keys=2.6-r0,\
 apk-tools=3.0.1-r1,\
-busybox=1.37.0-r20,\
-musl-utils=1.2.5-r10
+busybox=1.37.0-r29,\
+musl-utils=1.2.5-r21
 
 # install packages
 RUN \
@@ -87,17 +87,17 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.22.2-r0 \
-    bash=5.2.37-r0 \
+    alpine-release=3.23.0-r0 \
+    bash=5.3.3-r1 \
     ca-certificates=20251003-r0 \
     catatonit=0.2.1-r0 \
-    coreutils=9.7-r1 \
-    curl=8.14.1-r2 \
+    coreutils=9.8-r1 \
+    curl=8.17.0-r1 \
     findutils=4.10.0-r0 \
     jq=1.8.1-r0 \
-    netcat-openbsd=1.229.1-r0 \
-    procps-ng=4.0.4-r3 \
-    shadow=4.17.3-r0 \
+    netcat-openbsd=1.234.1-r0 \
+    procps-ng=4.0.5-r0 \
+    shadow=4.18.0-r0 \
     tzdata=2025b-r0 \
   && \
   echo "**** create abc user and make our folders ****" && \
