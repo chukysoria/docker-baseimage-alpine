@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1@sha256:b6afd42430b15f2d2a4c5a02b919e98a525b785b1aaff16747d2f623364e39b6
 
-ARG BUILD_FROM=alpine:3.23.0@sha256:51183f2cfa6320055da30872f211093f9ff1d3cf06f39a0bdb212314c5dc7375
+ARG BUILD_FROM=alpine:3.22
 FROM ${BUILD_FROM} AS rootfs-stage
 
 ARG BUILD_ARCH=x86_64
@@ -15,7 +15,7 @@ alpine-baselayout=3.7.1-r8,\
 alpine-keys=2.6-r0,\
 apk-tools=3.0.1-r1,\
 busybox=1.37.0-r29,\
-musl-utils=1.2.5-r21
+libc-utils
 
 # install packages
 RUN \
@@ -25,15 +25,14 @@ RUN \
     xz
 
 # build rootfs
-RUN <<EOF
-  mkdir -p "$ROOTFS/etc/apk" &&
-  {
-    echo "$MIRROR/$REL/main";
-    echo "$MIRROR/$REL/community";
-  } > "$ROOTFS/etc/apk/repositories" &&
-  apk --root "$ROOTFS" --no-cache --keys-dir /etc/apk/keys add --arch $BUILD_ARCH --initdb ${PACKAGES//,/ } &&
+RUN \
+  mkdir -p "${ROOTFS}/etc/apk" && \
+  { \
+    echo "${MIRROR}/${REL}/main"; \
+    echo "${MIRROR}/${REL}/community"; \
+  } > "${ROOTFS}/etc/apk/repositories" && \
+  apk --root "${ROOTFS}" --no-cache --keys-dir /etc/apk/keys add --arch ${BUILD_ARCH} --initdb ${PACKAGES//,/ } && \
   sed -i -e 's/^root::/root:!:/' /root-out/etc/shadow
-EOF
 
 # set version for s6 overlay
 ARG S6_OVERLAY_VERSION="3.2.1.0"
