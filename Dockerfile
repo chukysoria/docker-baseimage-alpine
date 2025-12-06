@@ -13,7 +13,7 @@ ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=\
 alpine-baselayout=3.7.0-r0,\
 alpine-keys=2.5-r0,\
-apk-tools=2.14.9-r3,\
+apk-tools=3.0.1-r1,\
 busybox=1.37.0-r20,\
 musl-utils=1.2.5-r10
 
@@ -89,7 +89,7 @@ RUN \
   apk add --no-cache \
     alpine-release=3.22.2-r0 \
     bash=5.2.37-r0 \
-    ca-certificates=20250911-r0 \
+    ca-certificates=20251003-r0 \
     catatonit=0.2.1-r0 \
     coreutils=9.7-r1 \
     curl=8.14.1-r2 \
