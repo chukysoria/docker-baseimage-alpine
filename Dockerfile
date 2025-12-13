@@ -19,7 +19,7 @@ libc-utils
 
 # install packages
 RUN \
-  apk upgrade --no-cache --scripts=no apk-tools && \
+  apk upgrade --no-cache apk-tools && \
   apk add --no-cache \
     bash \
     curl \
