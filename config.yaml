@@ -1,6 +1,6 @@
 ---
 image:  baseimage-alpine
-version: v1.0.0
+version: v1.0.1
 name: Base Image Alpine
 description: "[Base Image-Alpine] Base image for chukyserver.io"
 ext_release: 3.23
