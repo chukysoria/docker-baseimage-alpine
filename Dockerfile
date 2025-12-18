@@ -13,8 +13,8 @@ ENV MIRROR=http://dl-cdn.alpinelinux.org/alpine
 ENV PACKAGES=\
 alpine-baselayout=3.7.1-r8,\
 alpine-keys=2.6-r0,\
-apk-tools=3.0.2-r0,\
-busybox=1.37.0-r29,\
+apk-tools=3.0.3-r1,\
+busybox=1.37.0-r30,\
 libc-utils
 
 # install packages
@@ -87,7 +87,7 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.23.0-r0 \
+    alpine-release=3.23.2-r0 \
     bash=5.3.3-r1 \
     ca-certificates=20251003-r0 \
     catatonit=0.2.1-r0 \
