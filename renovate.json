@@ -3,7 +3,7 @@
   "extends": [
     "local>chukysoria/renovate-config",
     "local>chukysoria/renovate-config:docker-build",
-    "local>chukysoria/renovate-config:os-package(alpine_3_23)"
+    "local>chukysoria/renovate-config:os-package(alpine_3_24)"
   ],
   "customManagers": [
     {
