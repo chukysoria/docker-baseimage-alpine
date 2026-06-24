@@ -4,7 +4,7 @@ ARG BUILD_FROM=alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db8691
 FROM ${BUILD_FROM} AS rootfs-stage
 
 ARG BUILD_ARCH=x86_64
-ARG BUILD_EXT_RELEASE=3.23
+ARG BUILD_EXT_RELEASE=3.24
 
 # environment
 ENV ROOTFS=/root-out
@@ -89,7 +89,7 @@ RUN \
   apk add --no-cache \
     alpine-release=3.24.1-r0 \
     bash=5.3.9-r1 \
-    ca-certificates=20260413-r0\
+    ca-certificates=20260611-r0\
     catatonit=0.2.1-r0 \
     coreutils=9.11-r0 \
     curl=8.20.0-r1 \
