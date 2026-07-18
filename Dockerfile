@@ -98,7 +98,7 @@ RUN \
     netcat-openbsd=1.234.1-r0 \
     procps-ng=4.0.6-r0 \
     shadow=4.18.0-r1 \
-    tzdata=2026b-r0 \
+    tzdata=2026c-r0 \
   && \
   echo "**** create abc user and make our folders ****" && \
   groupmod -g 1000 users && \
