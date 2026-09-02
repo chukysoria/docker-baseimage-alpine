@@ -94,7 +94,7 @@ RUN \
     coreutils=9.11-r0 \
     curl=8.21.0-r0 \
     findutils=4.10.0-r1 \
-    jq=1.8.1-r0 \
+    jq=1.8.2-r0 \
     netcat-openbsd=1.234.1-r0 \
     procps-ng=4.0.6-r0 \
     shadow=4.18.0-r1 \
