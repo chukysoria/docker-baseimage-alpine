@@ -89,7 +89,7 @@ RUN \
   apk add --no-cache \
     alpine-release=3.24.1-r0 \
     bash=5.3.9-r1 \
-    ca-certificates=20260611-r0\
+    ca-certificates=20260909-r0\
     catatonit=0.2.1-r0 \
     coreutils=9.11-r0 \
     curl=8.22.0-r0 \
