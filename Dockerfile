@@ -87,7 +87,7 @@ ENV PS1="$(whoami)@$(hostname):$(pwd)\\$ " \
 RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
-    alpine-release=3.24.1-r0 \
+    alpine-release=3.24.2-r0 \
     bash=5.3.9-r1 \
     ca-certificates=20260611-r0\
     catatonit=0.2.1-r0 \
@@ -98,7 +98,7 @@ RUN \
     netcat-openbsd=1.234.1-r0 \
     procps-ng=4.0.6-r0 \
     shadow=4.18.0-r1 \
-    tzdata=2026c-r0 \
+    tzdata=2026d-r0 \
   && \
   echo "**** create abc user and make our folders ****" && \
   groupmod -g 1000 users && \
