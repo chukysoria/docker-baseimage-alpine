@@ -97,7 +97,7 @@ RUN \
     jq=1.8.2-r0 \
     netcat-openbsd=1.234.1-r0 \
     procps-ng=4.0.6-r0 \
-    shadow=4.18.0-r1 \
+    shadow=4.20.4-r0 \
     tzdata=2026f-r0 \
   && \
   echo "**** create abc user and make our folders ****" && \
